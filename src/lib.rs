@@ -125,7 +125,7 @@ async fn main() {
                                     if new_lvl.changed() {
                                         // print_limited::<128>(&format_args!("lvl change: {:?}", new_lvl.current));
 
-                                        if new_lvl.current != None || new_lvl.old == Some(5) {
+                                        if new_lvl.current.is_some() || new_lvl.old == Some(5) {
                                             timer::split();
                                         }
                                     }
