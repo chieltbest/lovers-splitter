@@ -17,8 +17,7 @@ asr::panic_handler!();
 
 
 fn get_save_slots(usd: &UnityPointer<8>, process: &Process, module: &Module, img: &Image) -> Option<[Address; 3]> {
-    let usd_addr = usd.deref_offsets(&process, &module, &img).ok()?;
-    DeepPointer::<8>::new(usd_addr, PointerSize::Bit32, &[0x8]).deref::<[u32; 3]>(&process)
+    usd.deref::<[u32; 3]>(process, module, img)
         .map(|r| r.map(|ptr| ptr.into())).ok()
 }
 
@@ -73,7 +72,7 @@ async fn main() {
                                                  &[
                                                      "0x1C", // _sharedInstance
                                                      "0x8", // currentLoadedUserSaveData
-                                                     "0x0",
+                                                     "0x8", // saveSlot1
                                                  ]);
                 let mut save_ptr_watch = Watcher::<[Address; 3]>::new();
                 let mut sdm_level_watch = Watcher::<Option<u32>>::new();
