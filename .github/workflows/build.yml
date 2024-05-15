@@ -48,7 +48,8 @@ jobs:
       - name: Install Rust
         uses: hecrj/setup-rust-action@v1
         with:
-          components: clippy
+          components: rust-src, clippy
+          rust-version: nightly
           targets: wasm32-unknown-unknown
 
       - name: Run Clippy
@@ -65,6 +66,7 @@ jobs:
         uses: hecrj/setup-rust-action@v1
         with:
           components: rustfmt
+          rust-version: nightly
 
       - name: Run cargo fmt
         run: cargo fmt -- --check || true
